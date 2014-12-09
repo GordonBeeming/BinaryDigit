@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+    <siteMapNode url="/Account/Manage" title="Manage Account" description="">
+        <siteMapNode url="/Account/Blogs/List" title="Blogs" description="">
+            <siteMapNode url="/Account/Blogs/Form" title="Create a Blog Post" description="" />
+        </siteMapNode>
+        <siteMapNode url="/Moderater/Comments/" title="Comments" description="">
+            <siteMapNode url="/Moderater/Comments/?q=all" title="All" description="" />
+            <siteMapNode url="/Moderater/Comments/?q=approved" title="Approved" description="" />
+            <siteMapNode url="/Moderater/Comments/?q=pending" title="Pending" description="" />
+            <siteMapNode url="/Moderater/Comments/?q=spam" title="Spam" description="" />
+            <siteMapNode url="/Moderater/Comments/?q=deleted" title="Deleted" description="" />
+        </siteMapNode>
+        <siteMapNode url="/Account/Administrator/FileBrowser.aspx" title="File Browser">
+
+        </siteMapNode>
+    </siteMapNode>
+</siteMap>

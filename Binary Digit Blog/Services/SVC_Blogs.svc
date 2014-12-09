@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Binary_Digit_Blog.Services.SVC_Blogs" CodeBehind="SVC_Blogs.svc.cs" %>

@@ -1,0 +1,5 @@
+﻿User-agent: *
+Disallow: /Account/
+Disallow: /SmartFileOutputHandler.ashx
+Disallow: /Files/
+Disallow: /File$/

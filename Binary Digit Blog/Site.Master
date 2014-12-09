@@ -1,0 +1,176 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Binary_Digit_Blog.SiteMaster" %>
+
+<%@ Register Src="~/Controls/WhatMakesThisSiteTick.ascx" TagPrefix="uc1" TagName="WhatMakesThisSiteTick" %>
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+    <head runat="server">
+        <meta charset="utf-8" />
+        <meta property="og:image" content="http://binarydigit.co.za/Images/SocialMedia/siteThumb.png" />
+        <link rel="image_src" href="http://binarydigit.co.za/Images/SocialMedia/siteThumb.png" />
+
+        <asp:PlaceHolder ID="PlaceHolder1" runat="server">
+            <meta property="og:url" content="<%= HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + this.Request.RawUrl %>" />
+            <meta property="og:title" content="<%= this.Page.Title %> - B1n4ry D1g1t" />
+            <meta property="og:description" content="<%= this.Page.MetaDescription %>" />
+            <meta property="og:type" content="blog" />
+
+        </asp:PlaceHolder>
+        <title><%: this.Page.Title %> - B1n4ry D1g1t</title>
+        <meta name="application-name" content="B1n4ry D1gt"/> 
+        <meta name="msapplication-TileColor" content="#49B4E8"/> 
+        <meta name="msapplication-TileImage" content="http://binarydigit.co.za/Images/SocialMedia/siteThumb.png"/>
+        <asp:PlaceHolder runat="server">
+            <%: Scripts.Render("~/bundles/modernizr") %>
+            <%: Scripts.Render("~/bundles/jquery") %>
+            <%: Scripts.Render("~/bundles/WebFormsJs") %>
+            <%--<%: Scripts.Render("~/bundles/MsAjaxJs") %>--%>
+
+            <%: Styles.Render("~/Content/themes/base/css", "~/Content/css") %>
+        </asp:PlaceHolder>
+        <%--<webopt:BundleReference runat="server" Path="~/Content/css" />
+        <webopt:BundleReference runat="server" Path="~/Content/themes/base/css" />--%>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+    </head>
+    <body>
+        <form id="form1" runat="server">
+            <ajaxToolkit:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release">
+                <Services>
+                    <asp:ServiceReference Path="/Services/WSSudokuProblemSolver.asmx" />
+                </Services>
+            </ajaxToolkit:ToolkitScriptManager>
+            <header>
+                <div class="content-wrapper">
+                    <div class="float-left">
+                        <p class="site-title">
+                            <a runat="server" href="~/">B1n4ry D1g1t</a>
+                        </p>
+                    </div>
+                    <div class="float-right">
+                        <section id="login">
+                            <asp:LoginView runat="server" ViewStateMode="Disabled">
+                                <AnonymousTemplate>
+                                    <ul>
+                                        <li>
+                                            <a id="registerLink" runat="server" href="~/Account/Register.aspx">Register</a>
+                                        </li>
+                                        <li>
+                                            <a id="loginLink" runat="server" href="~/Account/Login.aspx">Log in</a>
+                                        </li>
+                                    </ul>
+                                </AnonymousTemplate>
+                                <LoggedInTemplate>
+                                    <p>
+                                        Hello,
+                                        <a runat="server" class="username" href="~/Account/Manage.aspx" title="Manage your account">
+                                            <asp:LoginName runat="server" CssClass="username" />
+                                        </a>!
+                                        <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+                                    </p>
+                                </LoggedInTemplate>
+                            </asp:LoginView>
+                        </section>
+                        <nav>
+                            <ul id="menu">
+                                <li>
+                                    <a runat="server" href="~/Blog">Blog</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="~/Apps">Apps</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="~/About.aspx">About</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="~/Contact.aspx">Contact</a>
+                                </li>
+                                <li class="aspMenu"
+                                    <% if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                                       {
+                                    %>
+                                        style="display: none;"
+                                    <% }
+                                    %>>
+                                    <asp:SiteMapDataSource runat="server" ID="SiteMap" SiteMapProvider="XmlSiteMapProvider" />
+                                    <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMap" Orientation="Horizontal">
+                                    </asp:Menu>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <div id="body">
+                <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+                <section class="content-wrapper main-content clear-fix">
+                    <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+
+
+                </section>
+            </div>
+            <div class="content-wrapper">
+                <uc1:WhatMakesThisSiteTick runat="server" ID="WhatMakesThisSiteTick" />
+            </div>
+
+            <footer>
+                <div class="content-wrapper">
+                    <div class="float-left">
+                        <p>
+                            &copy; <%: DateTime.Now.Year %> Binary Digit - All rights reserved.
+                            <a href="/Disclaimer">disclaimer</a>
+                        </p>
+                    </div>
+                    <div class="float-right">
+                        <div class="socialMedia">
+                            <a href='<%= this.FacebookUrl %>' title='<%= this.FacebookName %>' target="_blank">
+                                <img src="/Images/SocialMedia/Facebook01.png" alt='<%= this.FacebookName %>' width="32px" height="32px" />
+                            </a>
+                            <a href='<%= this.TwitterUrl %>' title='<%= this.TwitterName %>' target="_blank">
+                                <img src="/Images/SocialMedia/Twitter 01.png" alt='<%= this.TwitterName %>' width="32px" height="32px" />
+                            </a>
+                            <a href='<%= this.LinkedInUrl %>' title='<%= this.LinkedInName %>' target="_blank">
+                                <img src="/Images/SocialMedia/LinkedIn01.png" alt='<%= this.LinkedInName %>' width="32px" height="32px" />
+                            </a>
+                            <a href='<%= this.MicrosoftAccountUrl %>' title='<%= this.MicrosoftAccountName %>' target="_blank">
+                                <img src="/Images/SocialMedia/microsoftAccount01.png" alt='<%= this.MicrosoftAccountName %>' width="32px" height="32px" />
+                            </a>
+                            <a href='<%= this.MsdnUrl %>' title='<%= this.MsdnName %>' target="_blank">
+                                <img src="/Images/SocialMedia/msdn01.png" alt='<%= this.MsdnName %>' width="32px" height="32px" />
+                            </a>
+                            <a href='<%= this.CodeprojectUrl %>' title='<%= this.CodeprojectName %>' target="_blank">
+                                <img src="/Images/SocialMedia/codeProject01.png" alt='<%= this.CodeprojectName %>' width="32px" height="32px" />
+                            </a>
+                            <a href='<%= this.CodeplexUrl %>' title='<%= this.CodeplexName %>' target="_blank">
+                                <img src="/Images/SocialMedia/codeplex01.png" alt='<%= this.CodeplexName %>' width="32px" height="32px" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </form>
+
+        <script type="text/javascript">
+            if (document.location.hostname.toLowerCase() == 'binarydigit.co.za') {
+                var _gaq = _gaq || [];
+                var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+                _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+                _gaq.push(['_setAccount', 'UA-37371725-1']);
+                _gaq.push(['_trackPageview']);
+
+                (function() {
+                    var ga = document.createElement('script');
+                    ga.type = 'text/javascript';
+                    ga.async = true;
+                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(ga, s);
+                })();
+            }
+
+        </script>
+    </body>
+</html>

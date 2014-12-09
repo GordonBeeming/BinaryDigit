@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Binary_Digit_Blog.Global" Language="C#" %>
